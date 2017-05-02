@@ -1,10 +1,26 @@
 #!/bin/bash
 
+
+
+##################################################################
+###### ------       collecteur bash Collecteur.sh       ------ ###########
+###### version : 0.1                                   ###########
+###### date : 02/05/2017                               ###########
+###### réalisé par : Franck & Pierre-E                 ###########
+##################################################################
+pathlog=/var/run/log/collecteurMonitoring
+`mkdir -p $pathlog`
+filelog=/var/run/log/collecteurMonitoring/collecteur_bash.txt
+`touch $filelog`
+
+
 CPU=`lscpu | sed -n 13p`
 GRAPHIC_CARD=`lspci | grep VGA`
 DISQUES=`df -h`
 #RAM=`free -m`
-RAM=`cat /proc/meminfo | sed -n 1p`
+
+RAMOCCUPER=`cat /proc/meminfo | sed -n 1p`
+RAMDISPONIBLE=`cat /proc/meminfo | sed -n 3p`
 #PROCESS= ``
 OS_VERSION=`cat /etc/issue`
 USERS=`who`
@@ -100,7 +116,7 @@ do
 	echo "$CPU"
 	echo ""
 	echo "---------------------- RAM ---------------------"
-	echo "$RAM"
+	echo "$RAMOCCUPER"
 	echo ""
 	echo "---------------------- CARTE GRAPHIQUE ---------------------"
 	echo "$GRAPHIC_CARD"
@@ -116,50 +132,51 @@ do
 	echo ""
 
 	
+	 echo -n $RAMOCCUPER "; || ;" $RAMDISPONIBLE > $filelog
 	
 	
-	rep=1 
-while [ "$rep" -eq 1 ]; do 
-    printf "menu (""taper"" help pour plus d'information) :\n\n" 
+	# rep=1 
+# while [ "$rep" -eq 1 ]; do 
+    # printf "menu (""taper"" help pour plus d'information) :\n\n" 
    
-	echo "faire un choix :"
-    read   choix arg
-    case "$choix" in 
-        1) 	printf "Version de linux :\n" 
-			echo `uname -a` ;; 
-		2) 	exo2 $arg ;;		
-		3) 	exo3 $arg ;;		
-		4) 	exo4 $arg ;;		
-		5) 	exo5 ;;		
-		7) 	exo7 $arg ;;		
-		8) 	exo8 ;;		
-		9) 	exo9 $arg ;;		
-		10) exo10 ;;		
-		11) exo11 $arg ;;		
-		12) exo12 $arg ;;
-		help)  echo "1. Version de linux" 
-    echo "2. exo2 with arg" 
-    echo "3. exo3 with arg" 
-    echo "4. exo4 with arg" 
-    echo "5. exo5" 
-    echo "7. exo7 with arg" 
-    echo "8. exo8" 
-    echo "9. exo9 with arg" 
-    echo "10. exo10" 
-    echo "11. exo11" 
-    echo "12. exo12" 
+	# echo "faire un choix :"
+    # read   choix arg
+    # case "$choix" in 
+        # 1) 	printf "Version de linux :\n" 
+			# echo `uname -a` ;; 
+		# 2) 	exo2 $arg ;;		
+		# 3) 	exo3 $arg ;;		
+		# 4) 	exo4 $arg ;;		
+		# 5) 	exo5 ;;		
+		# 7) 	exo7 $arg ;;		
+		# 8) 	exo8 ;;		
+		# 9) 	exo9 $arg ;;		
+		# 10) exo10 ;;		
+		# 11) exo11 $arg ;;		
+		# 12) exo12 $arg ;;
+		# help)  echo "1. Version de linux" 
+    # echo "2. exo2 with arg" 
+    # echo "3. exo3 with arg" 
+    # echo "4. exo4 with arg" 
+    # echo "5. exo5" 
+    # echo "7. exo7 with arg" 
+    # echo "8. exo8" 
+    # echo "9. exo9 with arg" 
+    # echo "10. exo10" 
+    # echo "11. exo11" 
+    # echo "12. exo12" 
     
-    echo -e "q. To quit\n" ;;
-        q) 
-            echo "Goodbye" 
-            #pause 
-            rep=0 ;; 
-        *) 
-            echo "Input error"
-			exit 101 ;;
-            #pause ;; 
-    esac 
-done
+    # echo -e "q. To quit\n" ;;
+        # q) 
+            # echo "Goodbye" 
+            # #pause 
+            # rep=0 ;; 
+        # *) 
+            # echo "Input error"
+			# exit 101 ;;
+            # #pause ;; 
+    # esac 
+# done
 
 exit 0
 	

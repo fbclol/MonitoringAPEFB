@@ -1,12 +1,28 @@
+#!/usr/bin/env python
+# coding: utf-8
+
+
+
+
+##################################################################
+###### ------       collecteur mixe Collecteur2.py       ------ ###########
+###### version : 0.1                                   ###########
+###### date : 02/05/2017                               ###########
+###### réalisé par : Franck & Pierre-E                 ###########
+##################################################################
+
 #import psutil
 import os
 import time
-
-#Pour compiler le programme python, utiliser la commande 'python <nom du fichier>'
-
 print('#####################################################')
 print("######## EXTRACTION D'INFORMATION DU SYSTEME ########")
 print('#####################################################\n')
+
+import datetime
+
+now = datetime.datetime.now()
+now = now.strftime("%Y-%m-%d-%H-%M")
+print now
 
 while True:
 

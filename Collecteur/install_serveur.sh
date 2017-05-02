@@ -9,7 +9,8 @@
 
 # require ficher(s) : [serveurMonitoring.py,init-d-script-monitoring]
 
-#cp -r /etc/init/ /etc/init.save$(date +%Y%m%d)
+# python doit être installé
+#apt-get install python
 
 # chemin de base du projet pour la partie Collecteur
 pathProject="/home/tmp/tp_bash/projet/MonitoringAPEFB/Collecteur"
@@ -30,3 +31,9 @@ ln -s $pathProject/serveurMonitoring ./serveurMonitoring
 
 # rendre le programme.py service / deamon et lancer au demarrage du serveur 
 update-rc.d serveurMonitoring defaults 99
+
+echo "ne pas oublier de mettre l'ip du serveur dans le scrip python (client.py)"
+echo 'ip :' `hostname -I`
+echo 'le service peut ce lancer avec la commande : >> service serveurMonitoring start , il tournera en arriere plan'
+echo 'on peut afficher le service en mode verbeux avec la commande : >> serveurMonitoring'
+#service serveurMonitoring start

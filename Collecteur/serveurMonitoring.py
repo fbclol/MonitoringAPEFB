@@ -14,12 +14,15 @@
 import socket
 import threading
 import os
-from datetime import date
-today = str(date.today())
+import datetime
+
+today = datetime.datetime.now()
+today = now.strftime("%Y-%m-%d-%H-%M")
+
 basePathSrv="/home/tmp/tp_bash/projet/MonitoringAPEFB/Collecteur/log/"
 os.system("mkdir -p /home/tmp/tp_bash/projet/MonitoringAPEFB/Collecteur/log/")
 
-
+print "ip du serveur :"+socket.gethostbyname(socket.gethostname())
 # si ne marche pas ouvir le port 1111
 #iptables -A INPUT -p tcp -i eth0 --dport 1111 -j ACCEPT
 
@@ -36,7 +39,7 @@ class ClientThread(threading.Thread):
     def run(self):
 	
 		localname= self.clientsocket.recv(255)
-		filename="/data/test5.txt"
+		filename="/var/run/log/collecteurMonitoring/collecteur_bash.txt"
 		
 		self.clientsocket.send(filename)
 		r = self.clientsocket.recv(9999999)
