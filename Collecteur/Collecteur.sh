@@ -122,7 +122,7 @@ do
 while [ "$rep" -eq 1 ]; do 
     printf "menu (""taper"" help pour plus d'information) :\n\n" 
    
-	echo "Make a choice :"
+	echo "faire un choix :"
     read   choix arg
     case "$choix" in 
         1) 	printf "Version de linux :\n" 
