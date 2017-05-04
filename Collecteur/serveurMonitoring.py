@@ -17,7 +17,7 @@ import os
 import datetime
 
 today = datetime.datetime.now()
-today = now.strftime("%Y-%m-%d-%H-%M")
+today = today.strftime("%Y-%m-%d-%H-%M")
 
 basePathSrv="/home/tmp/tp_bash/projet/MonitoringAPEFB/Collecteur/log/"
 os.system("mkdir -p /home/tmp/tp_bash/projet/MonitoringAPEFB/Collecteur/log/")

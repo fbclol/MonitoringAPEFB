@@ -12,6 +12,15 @@
 # python doit être installé
 #apt-get install python
 
+#jq doit etre installé pour le json
+#apt-get install jq
+
+# wget pour aller parser le site web
+#apt-get install wget
+
+# pour voir la carte graphique
+#apt-get install pciutils 
+
 # chemin de base du projet pour la partie Collecteur
 pathProject="/home/tmp/tp_bash/projet/MonitoringAPEFB/Collecteur"
 chmod +x $pathProject/serveurMonitoring.py

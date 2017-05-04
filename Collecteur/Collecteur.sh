@@ -14,20 +14,25 @@ filelog=/var/run/log/collecteurMonitoring/collecteur_bash.txt
 `touch $filelog`
 
 
-CPU=`lscpu | sed -n 13p`
-GRAPHIC_CARD=`lspci | grep VGA`
-DISQUES=`df -h`
+NOMPROCESSEUR=`lscpu | sed -n 12p`
+ARCHITECTURE=`lscpu | sed -n 1p | tr -d 'Architecture: '`
+NBREDECORE=`lscpu | sed -n 4p | tr -d 'CPU(s): '`
+NOMPROCESSEUR=`lscpu | sed -n 1p`
+GRAPHIC_CARD=`lspci | grep VGA` # sur docker sort rien...
+DISQUES=`df -k | grep "dev/sd"`
 #RAM=`free -m`
 
-RAMOCCUPER=`cat /proc/meminfo | sed -n 1p`
-RAMDISPONIBLE=`cat /proc/meminfo | sed -n 3p`
+#RAMTOTAL=`cat /proc/meminfo | sed -n 1p`
+RAMTOTAL=`cat /proc/meminfo | sed -n 1p | tr -d 'MemTotal: ' | tr -d 'kB'`
+#RAMDISPONIBLE=`cat /proc/meminfo | sed -n 3p`
+RAMDISPONIBLE=`cat /proc/meminfo | sed -n 3p | tr -d 'MemAvailabe: ' | tr -d 'kB'`
 #PROCESS= ``
-OS_VERSION=`cat /etc/issue`
-USERS=`who`
+OS_VERSION=`cat /etc/issue | sed s/' \\n \\l'/''/g`
+USERS=`who` # sur docker sort rien...
 #who | awk -F "[ (:0)]" '{printf "%-10s%17s\n", $1, $(NF-1)}' | uniq
 
-
-
+# trouver des lien symbolique en erreur
+#find / -type l | perl -lne 'print if ! -e'
 
 ###################### EXEMPLe pour l'envoie de mail avec cron tab
 # 0 0 * * * clamscan --recursive --log=/var/log/clamav/clamscan.log --quiet /DATA ; mail -s "resultat du scan des virus" email@domaine.fr < /var/log/clamav/clamscan.log
@@ -103,7 +108,8 @@ USERS=`who`
 
 #
 #groups
-
+$SOMME = 0
+let SOMME = RAMTOTAL / RAMDISPONIBLE * 100
 
 echo "#####################################################"
 echo "######## EXTRACTION D'INFORMATION principal DU SYSTEME ########"
@@ -116,7 +122,7 @@ do
 	echo "$CPU"
 	echo ""
 	echo "---------------------- RAM ---------------------"
-	echo "$RAMOCCUPER"
+	echo "$RAMTOTAL kB & $RAMDISPONIBLE kB il vous reste $SOMME %"
 	echo ""
 	echo "---------------------- CARTE GRAPHIQUE ---------------------"
 	echo "$GRAPHIC_CARD"
@@ -131,8 +137,19 @@ do
 	echo "$USERS"
 	echo ""
 
-	
-	 echo -n $RAMOCCUPER "; || ;" $RAMDISPONIBLE > $filelog
+ echo -n	'{
+  "hostname" "''"
+  "ip_local" "''"
+  "ip_public" "''"
+  "nombre_user_connecte" "''"
+  "user_connecte" "''"
+  "carte_graphique" "'$GRAPHIC_CARD'"
+  "disque": "'$DISQUES'"
+  "ram_occuper": "'$RAMTOTAL'",
+  "ram_dispo": "'$RAMDISPONIBLE'"
+  "os_version": "'$OS_VERSION'"
+  "nom_processeur": "'$NOMPROCESSEUR'"
+} ' > $filelog
 	
 	
 	# rep=1 
