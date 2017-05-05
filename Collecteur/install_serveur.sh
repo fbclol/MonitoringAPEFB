@@ -26,7 +26,7 @@ pathProject="/home/tmp/tp_bash/projet/MonitoringAPEFB/Collecteur"
 chmod +x $pathProject/serveurMonitoring.py
 
 cd /usr/sbin/
-ln -s $pathProject/serveurMonitoring ./serveurMonitoring.py
+ln -s $pathProject/serveurMonitoring.py ./serveurMonitoring
 
 # se rendre dans le rép pour creer un lien symbolique
 cd /lib/init/

@@ -12,7 +12,8 @@
 
 import socket
 
-hostnameSRV = "172.17.0.2"
+#hostnameSRV = "172.17.0.2"
+hostnameSRV ="10.120.13.189"
 port = 1111
 
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
