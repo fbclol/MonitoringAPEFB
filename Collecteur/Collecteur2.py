@@ -20,16 +20,19 @@ print('#####################################################\n')
 
 import datetime
 
-now = datetime.datetime.now()
-now = now.strftime("%Y-%m-%d-%H-%M")
-print now
+#now = datetime.datetime.now()
+#now = now.strftime("%Y-%m-%d-%H-%M")
+#print now
 
-while True:
+os.system("mkdir -p /home/tmp/projet/monitoring_APEFB/Collecteur")
+mon_fichier = open('/home/tmp/projet/monitoring_APEFB/Collecteur/CollecteurMixt.json', 'w')
+mon_fichier.write("{\n")
 
 	#---------- CPU ----------
 	print('---------- CPU ----------')
 	os.system("lscpu | sed -n 13p")
 	print('\n')
+	
 
 	#---------- RAM ----------
 	print('---------- RAM ----------')
@@ -57,7 +60,4 @@ while True:
 	print('\n')
 
 
-
-
-	time.sleep(120)		#delai de 2 min
 
