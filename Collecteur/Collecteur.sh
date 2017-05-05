@@ -8,108 +8,27 @@
 ###### date : 02/05/2017                               ###########
 ###### réalisé par : Franck & Pierre-E                 ###########
 ##################################################################
+
 pathlog=/var/run/log/collecteurMonitoring
 `mkdir -p $pathlog`
-filelog=/var/run/log/collecteurMonitoring/collecteur_bash.txt
+filelog=/var/run/log/collecteurMonitoring/collecteur_bash.json
 `touch $filelog`
 
-
-NOMPROCESSEUR=`lscpu | sed -n 12p`
+HOSTNAME=`hostname`
+NOMPROCESSEUR=`lscpu | sed -n 12p | sed s/'Model name:'/''/g | tr -s ' ' ' '`
 ARCHITECTURE=`lscpu | sed -n 1p | tr -d 'Architecture: '`
 NBREDECORE=`lscpu | sed -n 4p | tr -d 'CPU(s): '`
-NOMPROCESSEUR=`lscpu | sed -n 1p`
-GRAPHIC_CARD=`lspci | grep VGA` # sur docker sort rien...
-DISQUES=`df -k | grep "dev/sd"`
-#RAM=`free -m`
-
-#RAMTOTAL=`cat /proc/meminfo | sed -n 1p`
+DISQUES=`df -h | grep "dev/sd"`
 RAMTOTAL=`cat /proc/meminfo | sed -n 1p | tr -d 'MemTotal: ' | tr -d 'kB'`
-#RAMDISPONIBLE=`cat /proc/meminfo | sed -n 3p`
 RAMDISPONIBLE=`cat /proc/meminfo | sed -n 3p | tr -d 'MemAvailabe: ' | tr -d 'kB'`
-#PROCESS= ``
-OS_VERSION=`cat /etc/issue | sed s/' \\n \\l'/''/g`
-USERS=`who` # sur docker sort rien...
-#who | awk -F "[ (:0)]" '{printf "%-10s%17s\n", $1, $(NF-1)}' | uniq
-
-# trouver des lien symbolique en erreur
-#find / -type l | perl -lne 'print if ! -e'
-
-###################### EXEMPLe pour l'envoie de mail avec cron tab
-# 0 0 * * * clamscan --recursive --log=/var/log/clamav/clamscan.log --quiet /DATA ; mail -s "resultat du scan des virus" email@domaine.fr < /var/log/clamav/clamscan.log
-#
+OS_VERSION=`cat /etc/issue | grep -o "^[^\]*"`
+PROGRAMME=`top -bn1 | grep 'Tasks:'`
+UTILISATIONCPU=`top -bn1 | grep '%Cpu'`
+NBREUSER=`top -bn1 | grep 'top -' | cut -d, -f2 | tr -s 'users ' ' '`
+USERS=`who | awk -F "[ (:0)]" '{printf "%-10s%17s\n", $1, $(NF-1)}' | uniq` # sur docker sort rien...
+DUREEORDINATEUR=`uptime |  awk '{print $3}' | tr -d ','`
 
 
-#en test
-# Permet de voir d'un seul coup d'oeil si la machine est vraiment surchargée
-#w
-
-# Affiche avec une entête des informations (nom de login, console ... ) sur les utilisateurs connectés.
-#who -H
-
-# Permet de connaitre la date (   la date, l'heure et le décalage horaire)
-#date
-
-#  Durée de fonctionnement de l'ordinateur
-#uptime
-
-#  Charge est un indice de l'activité de l'ordinateur. Il y a trois valeurs pour 1 min , 5min et 15min
-#tload
-
-# Affiche au format humain l'espace total, occupé, libre sur tous les disques.
-#df -ah
-# Affiche des informations sur la mémoire (totale, libre, swap ...).
-#free ou cat /proc/meminfo
-
-# Affiche les statistiques sur la mémoire virtuelle.
-#vmstat
-
-# Affiche la liste des disques montés.
-#mount
-# Affiche le nom du système d'exploitation.
-
-#unam
-
-# Affiche le type du microprocesseur.
-
-#arch ou uname -m
-
-# affiche des informations sur le microprocesseur (type, fréquence, cache ...)
-
-#cat /proc/cpuinfo
-
-
-# Affiche diverses informations système (nom du SE, version, microprocesseur ...).
-
-#uname -a
-
-
-# Certaines variables système :
-#echo $OSTYPE
-#$BASH
-#$BASH_VERSION
-
-
-#  Permet d'obtenir la liste des processus qui tournent au moment où vous lancez la commande.
-#ps
-
-# Permet d'obtenir la liste des processus qui tournent pour un utilisateur donné
-#ps -u UTILISATEUR
-
-
-# Affiche la liste des 12 dernières connexions.
-#last -n 12
-
-
-#
-#logname
-
-#
-#users
-
-#
-#groups
-$SOMME = 0
-let SOMME = RAMTOTAL / RAMDISPONIBLE * 100
 
 echo "#####################################################"
 echo "######## EXTRACTION D'INFORMATION principal DU SYSTEME ########"
@@ -118,8 +37,9 @@ echo ""
 echo ""
 while true
 do
+	echo "nom de la machine : $HOSTNAME"
 	echo "---------------------- CPU ---------------------"
-	echo "$CPU"
+	echo " nom du processeur : $NOMPROCESSEUR"
 	echo ""
 	echo "---------------------- RAM ---------------------"
 	echo "$RAMTOTAL kB & $RAMDISPONIBLE kB il vous reste $SOMME %"
@@ -138,16 +58,19 @@ do
 	echo ""
 
  echo -n	'{
-  "hostname" "''"
-  "ip_local" "''"
-  "ip_public" "''"
-  "nombre_user_connecte" "''"
-  "user_connecte" "''"
-  "carte_graphique" "'$GRAPHIC_CARD'"
-  "disque": "'$DISQUES'"
+  "hostname":"'$HOSTNAME'",
+  "ip_local": "''",
+  "ip_public": "''",
+  "nom_processeur": "'$NOMPROCESSEUR'",
+  "architechture": "'$ARCHITECTURE'",
+  "nbre_core": "'$NBREDECORE'",
+  "nombre_user_connecte": "''",
+  "user_connecte": "''",
+  "carte_graphique": "'$GRAPHIC_CARD'",
+  "disque": "'$DISQUES'",
   "ram_occuper": "'$RAMTOTAL'",
-  "ram_dispo": "'$RAMDISPONIBLE'"
-  "os_version": "'$OS_VERSION'"
+  "ram_dispo": "'$RAMDISPONIBLE'",
+  "os_version": "'$OS_VERSION'",
   "nom_processeur": "'$NOMPROCESSEUR'"
 } ' > $filelog
 	
