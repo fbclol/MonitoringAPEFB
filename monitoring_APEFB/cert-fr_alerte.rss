@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"> 
+	<channel>
+		<title>Les alertes en cours du CERT-FR.</title>
+		<link>http://cert.ssi.gouv.fr</link>
+		<description>CERT-FR (Centre d'Expertise gouvernemental de Reponse et de Traitement des Attaques informatiques).</description>
+		<language>fr</language>
+		
+                <lastBuildDate>Thu, 04 May 2017 17:44:02 CEST</lastBuildDate>
+		<item><title>CERTFR-2017-ALE-008 : Multiples vulnérabilités dans Microsoft Windows XP et Windows Server 2003 (14 avril 2017)</title><link>http://www.cert.ssi.gouv.fr/site/CERTFR-2017-ALE-008/CERTFR-2017-ALE-008.html</link><description>De multiples vulnérabilités ont été découvertes dans Windows XP et Windows Server 2003. Elles permettent à un attaquant de provoquer une exécution de code arbitraire à distance et une élévation de privilèges.</description></item>
+<item><title>CERTFR-2017-ALE-006 : Multiples vulnérabilités dans SCADA Siemens RUGGEDCOM ROX I (29 mars 2017)</title><link>http://www.cert.ssi.gouv.fr/site/CERTFR-2017-ALE-006/CERTFR-2017-ALE-006.html</link><description>De multiples vulnérabilités ont été découvertes dans SCADA Siemens RUGGEDCOM ROX I. Certaines d'entre elles permettent à un attaquant de provoquer injection de requêtes illégitimes par rebond, un contournement de la politique de sécurité et une atteinte à la confidentialité des données.</description></item>
+<item><title>CERTFR-2017-ALE-005 : Vulnérabilité dans les commutateurs Cisco (20 mars 2017)</title><link>http://www.cert.ssi.gouv.fr/site/CERTFR-2017-ALE-005/CERTFR-2017-ALE-005.html</link><description>Une vulnérabilité a été découverte dans les commutateurs Cisco. Elle permet à un attaquant de provoquer une exécution de code arbitraire à distance.</description></item>
+<item><title>CERTFR-2017-ALE-004 : Vulnérabilité dans Apache Struts (10 mars 2017)</title><link>http://www.cert.ssi.gouv.fr/site/CERTFR-2017-ALE-004/CERTFR-2017-ALE-004.html</link><description>Une vulnérabilité a été découverte dans Apache Struts. Elle permet à un attaquant de provoquer une exécution de code arbitraire à distance.</description></item>
+<item><title>CERTFR-2016-ALE-007 : Vulnérabilité dans Cisco IOS, IOS XE et IOS XR (19 septembre 2016)</title><link>http://www.cert.ssi.gouv.fr/site/CERTFR-2016-ALE-007/CERTFR-2016-ALE-007.html</link><description>Une vulnérabilité a été découverte dans Cisco IOS, Cisco IOS XE et Cisco IOS XR. Elle permet à un attaquant de provoquer une atteinte à la confidentialité des données.</description></item>
+
+	<atom:link href="http://cert.ssi.gouv.fr/site/cert-fr_alerte.rss" rel="self" type="application/rss+xml"/>
+	</channel>
+</rss>
