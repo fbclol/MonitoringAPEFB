@@ -25,6 +25,41 @@ os.system("mkdir -p /var/run/log/collecteurMonitoring")
 mon_fichier = open('/var/run/log/collecteurMonitoring/collecteur_mixe.json', 'w')
 mon_fichier.write("{\n")
 
+<<<<<<< HEAD
+	#---------- CPU ----------
+	print('---------- CPU ----------')
+	os.system("lscpu | sed -n 13p")
+	print('\n')
+	mon_fichier.write('"CPU":"' + hostname + '",\n')
+	
+
+	#---------- RAM ----------
+	print('---------- RAM ----------')
+	os.system("cat /proc/meminfo | sed -n 1p")
+	print('\n')
+
+	#---------- CARTE GRAPHIQUE ----------
+	print('---------- CARTE GRAPHIQUE ----------')
+	os.system("lspci | grep VGA")
+	print('\n')
+
+	#---------- DISQUES ----------
+	print('---------- DISQUES ----------')
+	os.system("df -h")
+	print('\n')
+
+	#---------- OS & VERSION ----------
+	print('---------- OS & VERSION ----------')
+	os.system("cat /etc/issue")
+	print('\n')
+
+	#---------- USERS CONNECTES ----------
+	print('---------- NBR USERS CONNECTES ----------')
+	os.system("who")
+	print('\n')
+
+=======
+>>>>>>> a3b9cd429557898be5e6f894774c4aee1162b63b
 
 print('---------- Tag ----------')
 args = ["hostname"]
