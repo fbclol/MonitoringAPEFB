@@ -68,3 +68,8 @@ while i < len(data):
         with open('parseur.json', 'w', encoding='utf-8') as f:
             json.dump(data, f, indent=4, default=serialiseur_perso)
     i += 1
+	
+	
+	
+print('mise a jour de alerte')
+print('>> parseur.json')

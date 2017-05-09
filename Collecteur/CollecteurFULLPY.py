@@ -1,13 +1,15 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # coding: utf-8
 
 
 import os
-os.system("apt-get install -y gcc python-dev python-pip python-psutil")
+os.system("apt-get install -y gcc python3-dev python3-pip python3-psutil")
 import psutil
 import socket
+import datetime
 import json
-
+now = datetime.datetime.now()
+now = now.strftime("%Y-%m-%d-%H:%M:%S")
 
 ##################################################################
 ###### ------       collecteur python, Collecteur.sh       ------ ###########
@@ -23,17 +25,22 @@ mon_fichier.write("{\n")
 
 #print psutil.users()
 
+
 #---------------------------------------- hostname ---
 hostname = socket.gethostname()
-print "hostname:", hostname
+print("hostname:", hostname)
 mon_fichier.write('"hostname":"' + hostname + '",\n')
 
+#---------------------------------------- hostname ---
+print("date:", now)
+mon_fichier.write('"date":"' + now + '",\n')
+
 #---------------------------------------- utilization cpu ---
-print "utilization cpu:", psutil.cpu_percent()
+print("utilization cpu:", psutil.cpu_percent())
 mon_fichier.write('"utilization_cpu":"'+str(psutil.cpu_percent())+'",\n')
 
 #---------------------------------------- nbr cpu ---
-print "number cpu:", psutil.cpu_percent()
+print("number cpu:", psutil.cpu_percent())
 mon_fichier.write('"number_cpu":"'+str(psutil.cpu_count())+'"\n')
 
 #---------------------------------------- freq cpu---
@@ -42,6 +49,6 @@ mon_fichier.write('"number_cpu":"'+str(psutil.cpu_count())+'"\n')
 #mon_fichier.write('"frequence_cpu":"'+str(psutil.cpu_freq())+'"\n')
 
 mon_fichier.write("}")
-print "----------"
+print("----------")
 
 mon_fichier.close()

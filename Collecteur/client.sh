@@ -16,7 +16,7 @@ else
 echo "le service $app est déjà installé"
 fi
 
-app="python"
+app="python3"
 service=`apt-cache policy $app | grep none | wc -m`
 echo $service
 if [ $service -ne 0 ];
@@ -35,6 +35,7 @@ fi
 ./Collecteur2.py
 # collecteur python
 ./CollecteurFULLPY.py
+
 
 #client.py
 

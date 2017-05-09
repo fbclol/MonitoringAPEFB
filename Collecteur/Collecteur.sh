@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 ##################################################################
 ###### ------       collecteur bash Collecteur.sh       ------ ###########
@@ -28,6 +28,9 @@ USERS=`who | awk -F "[ (:0)]" '{printf "%-10s%17s\n", $1, $(NF-1)}' | uniq` # su
 DUREEORDINATEUR=`uptime |  awk '{print $3}' | tr -d ','`
 IPLOCAL=`hostname -i`
 IPPUBLIC=`wget -qO - icanhazip.com`
+DATELINE=`date +"%Y-%m-%d-%X"`
+
+
 
 echo "#####################################################"
 echo "######## EXTRACTION D'INFORMATION principal DU SYSTEME ########"
@@ -59,8 +62,11 @@ echo ""
 	echo "Tache en cours : $PROGRAMME"
 	echo ""
 
- echo -n	'{
+	
+
+ echo -n	'[{
   "hostname":"'$HOSTNAME'",
+  "date":"'$DATELINE'",
   "ip_local": "''",
   "ip_public": "''",
   "nom_processeur": "'$NOMPROCESSEUR'",
@@ -72,8 +78,12 @@ echo ""
   "ram_occuper": "'$RAMTOTAL'",
   "ram_dispo": "'$RAMDISPONIBLE'",
   "os_version": "'$OS_VERSION'",
-  "tache": "'$PROGRAMME'"
+  "tache": "'$PROGRAMME'",
   "utilisation_cpu": "'$UTILISATIONCPU'"
-} ' > $filelog
-	
+}]' > $filelog
 exit 0
+
+
+
+
+	
