@@ -32,6 +32,7 @@ mon_fichier.write("{\n")
 	print('---------- CPU ----------')
 	os.system("lscpu | sed -n 13p")
 	print('\n')
+	mon_fichier.write('"CPU":"' + hostname + '",\n')
 	
 
 	#---------- RAM ----------
