@@ -1,10 +1,15 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # coding: utf-8
-import psutil
-import os
-import socket
-import json
 
+
+import os
+os.system("apt-get install -y gcc python3-dev python3-pip python3-psutil")
+import psutil
+import socket
+import datetime
+import json
+now = datetime.datetime.now()
+now = now.strftime("%Y-%m-%d-%H:%M:%S")
 
 ##################################################################
 ###### ------       collecteur python, Collecteur.sh       ------ ###########
@@ -14,13 +19,8 @@ import json
 ##################################################################
 
 
-#path = "/home/tmp/projet"  # drwxr-xr-x
-os.system("mkdir -p /home/tmp/projet/monitoring_APEFB/Collecteur")
-
-#print(path)
-
-mon_fichier = open('/home/tmp/projet/monitoring_APEFB/Collecteur/CollecteurPy.json', 'w')
-
+os.system("mkdir -p /var/run/log/collecteurMonitoring")
+mon_fichier = open('/var/run/log/collecteurMonitoring/CollecteurPy.json', 'w')
 mon_fichier.write("{\n")
 
 #print psutil.users()
@@ -28,26 +28,27 @@ mon_fichier.write("{\n")
 
 #---------------------------------------- hostname ---
 hostname = socket.gethostname()
-print "hostname:", hostname
+print("hostname:", hostname)
 mon_fichier.write('"hostname":"' + hostname + '",\n')
 
-#---------------------------------------- utilization cpu ---
-print "utilization cpu:", psutil.cpu_percent()
-mon_fichier.write('"utilization cpu":"'+str(psutil.cpu_percent())+'",\n')
+#---------------------------------------- hostname ---
+print("date:", now)
+mon_fichier.write('"date":"' + now + '",\n')
 
+#---------------------------------------- utilization cpu ---
+print("utilization cpu:", psutil.cpu_percent())
+mon_fichier.write('"utilization_cpu":"'+str(psutil.cpu_percent())+'",\n')
 
 #---------------------------------------- nbr cpu ---
-print "number cpu:", psutil.cpu_percent()
-mon_fichier.write('"number cpu":"'+str(psutil.cpu_count())+'",\n')
+print("number cpu:", psutil.cpu_percent())
+mon_fichier.write('"number_cpu":"'+str(psutil.cpu_count())+'"\n')
 
 #---------------------------------------- freq cpu---
-freq ='%(number)06d' % \
-        {"language": "Python", "number": psutil.cpu_freq().current}
-print "frequence cpu:", freq
-mon_fichier.write('"frequence cpu":"'+str(freq)+'"\n')
 
-print psutil.users()
+#print "frequence cpu:", psutil.cpu_freq()
+#mon_fichier.write('"frequence_cpu":"'+str(psutil.cpu_freq())+'"\n')
 
 mon_fichier.write("}")
+print("----------")
 
 mon_fichier.close()

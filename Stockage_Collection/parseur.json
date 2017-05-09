@@ -1,0 +1,29 @@
+[
+    {
+        "pdf": "http://www.cert.ssi.gouv.fr/site/CERTFR-2017-ALE-008.pdf",
+        "__class__": "Alerte",
+        "site": "http://www.cert.ssi.gouv.fr/site/CERTFR-2017-ALE-008/index.html",
+        "annee": "2017",
+        "num": "008",
+        "alert": "CERTFR-2017-ALE-008",
+        "description": "Multiples vuln\u00e9rabilit\u00e9s dans Microsoft Windows XP et Windows Server 2003 (14 avril 2017)"
+    },
+    {
+        "pdf": "http://www.cert.ssi.gouv.fr/site/CERTFR-2017-ALE-007.pdf",
+        "__class__": "Alerte",
+        "site": "http://www.cert.ssi.gouv.fr/site/CERTFR-2017-ALE-007/index.html",
+        "annee": "2017",
+        "num": "007",
+        "alert": "CERTFR-2017-ALE-007",
+        "description": "Multiples vuln\u00c3\u00a9rabilit\u00c3\u00a9s dans Microsoft Windows XP et Windows Server 2003 (14 avril 2017)"
+    },
+	{
+        "pdf": "http://www.cert.ssi.gouv.fr/site/CERTFR-2017-ALE-006.pdf",
+        "__class__": "Alerte",
+        "site": "http://www.cert.ssi.gouv.fr/site/CERTFR-2017-ALE-006/index.html",
+        "annee": "2017",
+        "num": "006",
+        "alert": "CERTFR-2017-ALE-006",
+        "description": "Multiples vuln\u00c3\u00a9rabilit\u00c3\u00a9s dans Microsoft Windows XP et Windows Server 2003 (14 avril 2017)"
+    }
+]
