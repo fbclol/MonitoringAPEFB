@@ -13,7 +13,7 @@ echo "";
 
 echo "Création de l'archive";
 # On crée l'archive .tar en précisant entre guillemets les chemins absolus des dossiers à sauvegarder.
-tar -cvzf $PWD/archive/backup-`date +"%Y-%m-%d"`.tar.gz "/var/run/log/collecteurMonitoring/" "$PWD/parseur.json"
+tar -cvzf $PWD/archive/backup-`date +"%Y-%m-%d"`.tar.gz "/$PWD/bdd/" "$PWD/parseur.json" 
 
 echo "------------------------------------------------------";
 

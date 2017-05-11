@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 # coding: utf-8
 
-
 import os
 os.system("apt-get install -y gcc python3-dev python3-pip python3-psutil")
 import psutil
@@ -18,13 +17,11 @@ now = now.strftime("%Y-%m-%d-%H:%M:%S")
 ###### réalisé par : Franck & Pierre-E                 ###########
 ##################################################################
 
-
 os.system("mkdir -p /var/run/log/collecteurMonitoring")
 mon_fichier = open('/var/run/log/collecteurMonitoring/CollecteurPy.json', 'w')
-mon_fichier.write("{\n")
+mon_fichier.write("[{\n")
 
 #print psutil.users()
-
 
 #---------------------------------------- hostname ---
 hostname = socket.gethostname()
@@ -48,7 +45,7 @@ mon_fichier.write('"number_cpu":"'+str(psutil.cpu_count())+'"\n')
 #print "frequence cpu:", psutil.cpu_freq()
 #mon_fichier.write('"frequence_cpu":"'+str(psutil.cpu_freq())+'"\n')
 
-mon_fichier.write("}")
+mon_fichier.write("}]")
 print("----------")
 
 mon_fichier.close()

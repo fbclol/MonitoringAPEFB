@@ -18,8 +18,9 @@ path_temp=$PWD
 # On se place à la /(racine)
 cd /
 # On extrait les répertoires archivés en ne mettant PAS le / devant
-tar -xvzf $path_temp/archive/backup-$1.tar.gz "var/run/log/collecteurMonitoring/" "${path_temp#/}/parseur.json"
+tar -xvzf $path_temp/archive/backup-$1.tar.gz "${path_temp#/}/bdd/" "${path_temp#/}/parseur.json"
 echo "------------------------------------------------------";
 echo "";
 
 echo "### Fin de l'extraction des fichiers.  ###";
+exit 0

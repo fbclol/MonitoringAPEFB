@@ -10,7 +10,6 @@
 pathlog=/var/run/log/collecteurMonitoring
 `mkdir -p $pathlog`
 filelog="/var/run/log/collecteurMonitoring/collecteur_bash.json"
-#`touch $filelog`
 
 
 HOSTNAME=`hostname`
@@ -18,18 +17,18 @@ NOMPROCESSEUR=`lscpu | sed -n 12p | sed s/'Model name:'/''/g | tr -s ' ' ' '`
 ARCHITECTURE=`lscpu | sed -n 1p | tr -d 'Architecture: '`
 NBREDECORE=`lscpu | sed -n 4p | tr -d 'CPU(s): '`
 DISQUES=`df -h | grep "dev/sd"`
+DISQUES_USE=`df -h | grep "dev/sd" | tr -s '' ' ' | cut -d" "   -f5 | tr -d '%'`
 RAMTOTAL=`cat /proc/meminfo | sed -n 1p | tr -d 'MemTotal: ' | tr -d 'kB'`
 RAMDISPONIBLE=`cat /proc/meminfo | sed -n 3p | tr -d 'MemAvailabe: ' | tr -d 'kB'`
 OS_VERSION=`cat /etc/issue | grep -o "^[^\]*"`
 PROGRAMME=`top -bn1 | grep 'Tasks:'`
 UTILISATIONCPU=`top -bn1 | grep '%Cpu'`
-NBREUSER=`top -bn1 | grep 'top -' | cut -d, -f2 | tr -s 'users ' ' '`
-USERS=`who | awk -F "[ (:0)]" '{printf "%-10s%17s\n", $1, $(NF-1)}' | uniq` # sur docker sort rien...
+NBREUSER=`top -bn1 | grep 'top -' | cut -d, -f2 | tr -s -d 'users ' ' '`
+USERS=`who | awk -F "[ (:0)]" '{printf "%-10s%17s\n", $1, $(NF-1)}' | uniq`
 DUREEORDINATEUR=`uptime |  awk '{print $3}' | tr -d ','`
 IPLOCAL=`hostname -i`
 IPPUBLIC=`wget -qO - icanhazip.com`
 DATELINE=`date +"%Y-%m-%d-%X"`
-
 
 
 echo "#####################################################"
@@ -67,18 +66,20 @@ echo ""
  echo -n	'[{
   "hostname":"'$HOSTNAME'",
   "date":"'$DATELINE'",
-  "ip_local": "''",
-  "ip_public": "''",
+  "ip_local": "'$IPLOCAL'",
+  "ip_public": "'$IPPUBLIC'",
   "nom_processeur": "'$NOMPROCESSEUR'",
   "architechture": "'$ARCHITECTURE'",
   "nbre_core": "'$NBREDECORE'",
   "nombre_user_connecte": "'$NBREUSER'",
   "user_connecte": "'$USERS'",
   "disque": "'$DISQUES'",
+  "disque_use": "'$DISQUES_USE'",
   "ram_occuper": "'$RAMTOTAL'",
   "ram_dispo": "'$RAMDISPONIBLE'",
   "os_version": "'$OS_VERSION'",
   "tache": "'$PROGRAMME'",
+  "duree": "'$DUREEORDINATEUR'",
   "utilisation_cpu": "'$UTILISATIONCPU'"
 }]' > $filelog
 exit 0
