@@ -1,4 +1,0 @@
-# MonitoringAPEFB
-projet CERI
-
-test

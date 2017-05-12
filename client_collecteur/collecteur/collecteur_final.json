@@ -1,0 +1,27 @@
+[
+    {
+        "duree": "1:25",
+        "tache_sleeping": "211",
+        "ip_public": "194.57.216.9",
+        "tache_total": "\u00e2che212",
+        "nombre_user_connecte": "1",
+        "disque": "/dev/sda6 26G 6,7G 18G 28% / /dev/sda1 256M 97M 160M 38% /boot/efi",
+        "ram_dispo": "2482504",
+        "utilization_cpu": "0.0",
+        "tache": "",
+        "ip_local": "127.0.1.1",
+        "disque_use": "28 38",
+        "architechture": "x86_64",
+        "user_connecte": "angoulvant ",
+        "nbre_core": "4",
+        "utilisation_cpu": "%Cpu(s): 3,3 ut, 1,2 sy, 0,0 ni, 94,3 id, 1,2 wa, 0,0 hi, 0,0 si, 0,0 st",
+        "nom_processeur": "Mod\u00e8le\u00a0: 142",
+        "tache_running": "1",
+        "hostname": "ape-hp",
+        "os_version": "Ubuntu 16.04.2 LTS ",
+        "ram_occuper": "3959508",
+        "tache_stopped": "0",
+        "date": "2017-05-12-10:00:53",
+        "tache_zombie": "0"
+    }
+]

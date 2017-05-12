@@ -7,9 +7,9 @@
 ###### réalisé par : Franck & Pierre-E                 ###########
 ##################################################################
 
-pathlog=/var/run/log/collecteurMonitoring
-`mkdir -p $pathlog`
-filelog="/var/run/log/collecteurMonitoring/collecteur_bash.json"
+ 
+`mkdir -p ./log`
+filelog="$PWD/log/collecteur_bash.json"
 
 
 HOSTNAME=`hostname`

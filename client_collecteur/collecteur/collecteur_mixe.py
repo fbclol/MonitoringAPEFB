@@ -21,8 +21,8 @@ print('#####################################################\n')
 now = datetime.datetime.now()
 now = now.strftime("%Y-%m-%d-%H:%M:%S")
 
-os.system("mkdir -p /var/run/log/collecteurMonitoring")
-mon_fichier = open('/var/run/log/collecteurMonitoring/collecteur_mixe.json', 'w')
+os.system("mkdir -p /log")
+mon_fichier = open('./log/collecteur_mixe.json', 'w')
 mon_fichier.write("[{\n")
 
 
@@ -70,7 +70,7 @@ mon_fichier.write('"memoire_disponible":"' + str(out[0].decode("utf-8")[:-1]) + 
 
 #---------- DISQUES ----------
 print('---------- DISQUES ----------')
-args = ["df -h | grep 'dev/sd'"]
+args = ["df -h | grep 'dev/sd' | tr '\n' ',' "]
 proc = subprocess.Popen(args,shell=True,stdout=subprocess.PIPE)
 out = proc.communicate()
 print("Disques",out[0].decode("utf-8")) 
@@ -78,32 +78,32 @@ print("Disques",out[0].decode("utf-8"))
 mon_fichier.write('"disques":"' + str(out[0].decode("utf-8")[:-1]) + '"\n,')
 
 print('---------- TACHES ----------')
-args = ["top -bn1 | grep 'Tasks:'"]
+args = ["top -bn1 | egrep '(Tasks:|Tâches:)'"]
 proc = subprocess.Popen(args,shell=True,stdout=subprocess.PIPE)
 out = proc.communicate()
 print("Tache :",out[0].decode("utf-8")) 
 
-args = ["top -bn1 | grep 'Tasks:' | cut -d, -f1 | tr -d 'Task: total'"]
+args = ["top -bn1 | egrep '(Tasks:|Tâches:)' | cut -d, -f1 | tr -d 'Task: total'"]
 proc = subprocess.Popen(args,shell=True,stdout=subprocess.PIPE)
 out = proc.communicate()
 mon_fichier.write('"tache_total":"' + str(out[0].decode("utf-8")[:-1]) + '"\n,')
 
-args = ["top -bn1 | grep 'Tasks:' | cut -d, -f2 | tr -d 'running '"]
+args = ["top -bn1 | egrep '(Tasks:|Tâches:)' | cut -d, -f2 | tr -d '(running: |en cours: )'"]
 proc = subprocess.Popen(args,shell=True,stdout=subprocess.PIPE)
 out = proc.communicate()
 mon_fichier.write('"tache_running":"' + str(out[0].decode("utf-8")[:-1]) + '"\n,')
 
-args = ["top -bn1 | grep 'Tasks:' | cut -d, -f3 | tr -d 'sleeping '"]
+args = ["top -bn1 | egrep '(Tasks:|Tâches:)' | cut -d, -f3 | tr -d '(sleeping: |en veille: )'"]
 proc = subprocess.Popen(args,shell=True,stdout=subprocess.PIPE)
 out = proc.communicate()
 mon_fichier.write('"tache_sleeping":"' + str(out[0].decode("utf-8")[:-1]) + '"\n,')
 
-args = ["top -bn1 | grep 'Tasks:' | cut -d, -f4 | tr -d 'stopped '"]
+args = ["top -bn1 | egrep '(Tasks:|Tâches:)' | cut -d, -f4 | tr -d '(stopped: |arrêté: )'"]
 proc = subprocess.Popen(args,shell=True,stdout=subprocess.PIPE)
 out = proc.communicate()
 mon_fichier.write('"tache_stopped":"' + str(out[0].decode("utf-8")[:-1]) + '"\n,')
 
-args = ["top -bn1 | grep 'Tasks:' | cut -d, -f5 | tr -d 'zombie '"]
+args = ["top -bn1 | egrep '(Tasks:|Tâches:)' | cut -d, -f5 | tr -d 'zombie '"]
 proc = subprocess.Popen(args,shell=True,stdout=subprocess.PIPE)
 out = proc.communicate()
 mon_fichier.write('"tache_zombie":"' + str(out[0].decode("utf-8")[:-1]) + '"\n,')

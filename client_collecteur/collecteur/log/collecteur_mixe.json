@@ -1,0 +1,15 @@
+[{
+"hostname":"ape-hp"
+,"date":"2017-05-12-10:00:53",
+"nom_processeur":"Modèle : 142"
+,"nbre_core":"4"
+,"memoire_total":"3959508"
+,"memoire_disponible":"2475664"
+,"disques":"/dev/sda6           26G    6,7G   18G  28% /,/dev/sda1          256M     97M  160M  38% /boot/efi"
+,"tache_total":"âche212"
+,"tache_running":"1"
+,"tache_sleeping":"211"
+,"tache_stopped":"0"
+,"tache_zombie":"0"
+,"nombre_user_connecte":"1"
+}]
