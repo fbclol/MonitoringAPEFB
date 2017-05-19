@@ -15,7 +15,7 @@
         "os_version": "Ubuntu 16.04.2 LTS ",
         "utilisation_cpu": "%Cpu(s): 0.1 us, 0.1 sy, 0.0 ni, 99.7 id, 0.0 wa, 0.0 hi, 0.0 si, 0.0 st",
         "ip_local": "172.17.0.2",
-        "nombre_user_connecte": "2min",
+        "nombre_user_connecte": "2",
         "date": "2017-05-10-02:21:33",
         "tache_zombie": "0",
         "ip_public": "86.229.42.13",

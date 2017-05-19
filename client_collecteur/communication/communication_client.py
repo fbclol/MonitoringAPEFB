@@ -13,7 +13,7 @@ app.debug = True
 def index():
     return "Hello test !"
 
-@app.route('/monitoring')
+@app.route('/api/monitoring')
 def summary():
     data_file = open('../stockage_collection/collecteur_final.json')
     data = json.load(data_file)

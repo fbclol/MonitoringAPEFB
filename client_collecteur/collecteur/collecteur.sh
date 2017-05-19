@@ -14,7 +14,6 @@ filelog="$PWD/log/collecteur_bash.json"
 
 HOSTNAME=`hostname`
 NOMPROCESSEUR=`lscpu | sed -n 12p | sed s/'Model name:'/''/g | tr -s ' ' ' '`
-ARCHITECTURE=`lscpu | sed -n 1p | tr -d 'Architecture: '`
 NBREDECORE=`lscpu | sed -n 4p | tr -d 'CPU(s): '`
 DISQUES=`df -h | grep "dev/sd"`
 DISQUES_USE=`df -h | grep "dev/sd" | tr -s '' ' ' | cut -d" "   -f5 | tr -d '%'`

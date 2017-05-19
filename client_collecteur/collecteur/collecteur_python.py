@@ -34,11 +34,11 @@ mon_fichier.write('"date":"' + now + '",\n')
 
 #---------------------------------------- utilization cpu ---
 print("utilization cpu:", psutil.cpu_percent())
-mon_fichier.write('"utilization_cpu":"'+str(psutil.cpu_percent())+'",\n')
+mon_fichier.write('"utilization_cpu":"'+str(psutil.cpu_percent())+'"\n')
 
 #---------------------------------------- nbr cpu ---
-print("number cpu:", psutil.cpu_percent())
-mon_fichier.write('"number_cpu":"'+str(psutil.cpu_count())+'"\n')
+#print("number cpu:", psutil.cpu_percent())
+#mon_fichier.write('"number_cpu":"'+str(psutil.cpu_count())+'"\n')
 
 #---------------------------------------- freq cpu---
 
