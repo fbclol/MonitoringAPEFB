@@ -15,8 +15,9 @@ with urllib.request.urlopen('http://www.cert.ssi.gouv.fr/') as response:
    html = response.read()
 soup = BeautifulSoup(html, "html5lib")
 
-valuehtml = soup.findAll('table')[5].find_all('tr')[0].contents[1].get_text()
+valuehtml = soup.findAll('table')[5].find_all('tr')[0].contents[1].get_text().strip()
 description = soup.findAll('table')[5].find_all('tr')[0].contents[3].text
+
 
 # classe alerte
 class Alerte:
@@ -27,6 +28,7 @@ class Alerte:
         self.description = description
         self.pdf = pdf
         self.site = site
+
 # méthode
 def serialiseur_perso(obj):
 
@@ -67,7 +69,7 @@ i=0
 numMax=int(max(data,key=lambda item:item['num'])['num'])
 # récupére les alertes datant de 2017  et récupérer tout ce qui ne sont pas dans le JSON  avec un numéro d'alerte plus haut que celui du JSON
 while ((soup.findAll('table')[5].find_all('tr')[i].contents[1].get_text().split('-')[1]) == str(today.year) and (int(soup.findAll('table')[5].find_all('tr')[i].contents[1].get_text().split('-')[3]) >= numMax))  :
-    valuehtml=soup.findAll('table')[5].find_all('tr')[i].contents[1].get_text()
+    valuehtml=soup.findAll('table')[5].find_all('tr')[i].contents[1].get_text().strip()
     description=soup.findAll('table')[5].find_all('tr')[i].contents[3].text
     if numMax != int(valuehtml.split('-')[3]):
         print(soup.findAll('table')[5].find_all('tr')[i].contents[1].get_text().split('-')[3])
@@ -76,7 +78,7 @@ while ((soup.findAll('table')[5].find_all('tr')[i].contents[1].get_text().split(
                          annee=valuehtml.split('-')[1],
                          pdf="http://www.cert.ssi.gouv.fr/site/"+valuehtml+".pdf",
                          site="http://www.cert.ssi.gouv.fr/site/"+valuehtml+"/index.html",
-                         description=description.encode('utf-8'))
+                         description=description)
         data.insert(0,oAlerte)
 
     i += 1
