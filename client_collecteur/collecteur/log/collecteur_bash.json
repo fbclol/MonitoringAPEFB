@@ -1,19 +1,12 @@
 [{
-  "hostname":"ape-hp",
-  "date":"2017-05-12-10:00:53",
-  "ip_local": "127.0.1.1",
-  "ip_public": "194.57.216.9",
-  "nom_processeur": "Modèle : 142",
-  "architechture": "x86_64",
-  "nbre_core": "4",
-  "nombre_user_connecte": "1",
-  "user_connecte": "angoulvant ",
-  "disque": "/dev/sda6 26G 6,7G 18G 28% / /dev/sda1 256M 97M 160M 38% /boot/efi",
-  "disque_use": "28 38",
-  "ram_occuper": "3959508",
-  "ram_dispo": "2482504",
+  "hostname":"a4d8b765caa0",
+  "date":"2017-05-20-20:48:59",
+  "ip_local": "172.17.0.3",
+  "ip_public": "86.229.42.13",
+  "cpu": "%Cpu(s): 0,3 us, 0,2 sy, 0,0 ni, 99,5 id, 0,0 wa, 0,0 hi, 0,0 si, 0,0 st",
+  "disk_capacity_used": "6",
   "os_version": "Ubuntu 16.04.2 LTS ",
-  "tache": "",
-  "duree": "1:25",
-  "utilisation_cpu": "%Cpu(s): 3,3 ut, 1,2 sy, 0,0 ni, 94,3 id, 1,2 wa, 0,0 hi, 0,0 si, 0,0 st"
+  "nbr_users_logged": "0",
+  "users_logged": "",
+  "computer_duration": "7:17"
 }]

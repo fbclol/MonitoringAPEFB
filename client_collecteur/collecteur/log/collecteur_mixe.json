@@ -1,15 +1,15 @@
 [{
-"hostname":"ape-hp"
-,"date":"2017-05-12-10:00:53",
-"nom_processeur":"Modèle : 142"
-,"nbre_core":"4"
-,"memoire_total":"3959508"
-,"memoire_disponible":"2475664"
-,"disques":"/dev/sda6           26G    6,7G   18G  28% /,/dev/sda1          256M     97M  160M  38% /boot/efi"
-,"tache_total":"âche212"
-,"tache_running":"1"
-,"tache_sleeping":"211"
-,"tache_stopped":"0"
-,"tache_zombie":"0"
-,"nombre_user_connecte":"1"
+"hostname":"a4d8b765caa0"
+,"date":"2017-05-20-20:48:59",
+"name_processor":" Intel(R) Core(TM) i7-4710HQ CPU @ 2.50GHz"
+,"nbr_core":"1"
+,"total_memory":"1253632"
+,"memory_available":"753504"
+,"list_disks":"/dev/sda1        59G  3,3G   53G   6% /etc/hosts"
+,"task_total":"9"
+,"task_running":"1"
+,"task_sleeping":"8"
+,"task_stopped":"0"
+,"task_zombie":"0"
+
 }]

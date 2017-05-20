@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 # coding: utf-8
+
 from datetime import datetime
 import json
 import smtplib
@@ -7,11 +8,14 @@ import os, sys
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 
-maintenant = datetime.now()
+# Constant python
+_CODE_ALERT_MAIL_FUNCTIONING=1
+_CODE_ALERT_MAIL_DISK=2
+_CODE_ALERT_MAIL_RAM=3
+_CODE_ALERT_MAIL_CPU=4
 
-
-
-
+#There must be an argument.
+#hostname to point to each of the collectors
 if len(sys.argv) > 1:
 
     data_file = open('../stockage_collection/bdd/'+sys.argv[1]+'.json')
@@ -19,22 +23,28 @@ if len(sys.argv) > 1:
     datetime_object = datetime.strptime(data[0]["date"],'%Y-%m-%d-%H:%M:%S')
     duree = datetime.now() - datetime_object
 
-    def envoie_mail(num):
+    # méthode envoie_mail()
+    # template email
+    # param num int
+    def send_mail(code):
         fromaddr = "testmailbidon126@gmail.com"
         toaddr = "boue.franck@orange.fr"
         msg = MIMEMultipart()
         msg['From'] = fromaddr
         msg['To'] = toaddr
-        #msg['Subject'] = "[ALTERTE SERVEUR]- "+sys.argv[1]
-        if num ==1:
-         msg['Subject'] = "[ALTERTE SERVEUR][fonctionnement]- "+sys.argv[1]
-         body="Le serveur "+sys.argv[1]+" n'a pas donné signe de vie depuis plus de 30min"
-        elif num ==2:
-         msg['Subject'] = "[ALTERTE SERVEUR][disque]-  "+sys.argv[1]
-         body="Le serveur "+sys.argv[1]+" n'a plus de place sur le disque"
-        elif num ==3:
-         msg['Subject'] = "[ALTERTE SERVEUR][ram]- "+sys.argv[1]
-         body="Le serveur "+sys.argv[1]+" n'a plus de RAM disponible"
+
+        if code == _CODE_ALERT_MAIL_FUNCTIONING:
+         msg['Subject'] = "[ALERT SERVER][FUNCTIONING]- "+sys.argv[1]
+         body="The server "+sys.argv[1]+" Has not given a sign of life for more than 30 min"
+        elif code == _CODE_ALERT_MAIL_DISK:
+         msg['Subject'] = "[ALERT SERVER][DISK]-  "+sys.argv[1]
+         body="The server "+sys.argv[1]+" has no more space on the disk"
+        elif code == _CODE_ALERT_MAIL_RAM:
+         msg['Subject'] = "[ALERT SERVER][RAM]- "+sys.argv[1]
+         body="The server "+sys.argv[1]+"  has no more RAM disponible"
+        elif code == _CODE_ALERT_MAIL_CPU:
+         msg['Subject'] = "[ALERT SERVER][CPU]- "+sys.argv[1]
+         body="The server "+sys.argv[1]+" has no more CPU available"
         else:
          body="defaut"
 
@@ -51,14 +61,16 @@ if len(sys.argv) > 1:
         server.quit()
 
 
-    # module date
+    # Sends different mail according to the crises
     if duree.total_seconds() > 1800:
-        envoie_mail(1)
+        send_mail(code= _CODE_ALERT_MAIL_FUNCTIONING)
 
-    if int(data[0]['disque_use']) == 100:
-        envoie_mail(2)
+    if int(data[0]['disk_capacity_used']) == 100:
+        send_mail(code= _CODE_ALERT_MAIL_DISK)
 
-    if int(data[0]['ram_dispo']) == 0:
-        envoie_mail(3)
+    if int(data[0]['memory_available']) == 0:
+        send_mail(code= _CODE_ALERT_MAIL_RAM)
+    if int(data[0]['cpu_usage']) == 100:
+        send_mail(code= _CODE_ALERT_MAIL_CPU)
 else:
-    print("manque un arguement")
+    print("Missing an argument")
