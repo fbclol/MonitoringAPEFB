@@ -1,55 +1,101 @@
 # MonitoringAPEFB
-projet CERI
+## projet CERI - Monitoring
+
+par Pierre-Emmanuel Angoulvant et Franck Boué
+
+#### step 0
+récupérer le projet par le dépot de l'université ou sur github
+[git clone MonitoringAPEFB](https://github.com/fbclol/MonitoringAPEFB)
+
+si nécessaire pour donner les droits d'executions au script :
+```bash
+chmod +x ./programs.xx
+```
+
+### partie collecteur :
+#### step 1 - install for dépendence
+```bash
+cd ./MonitoringAPEFB/client_collecteur
+./setup.sh
+```
+le setup.sh contient toutes les librairies et paquets
 
 
-Monitoring
+#### step 2 - cron / automatisation
+```bash
+cd ./MonitoringAPEFB/client_collecteur/collecteur
+./cron.sh
+```
+le `cron.sh` permet de executer :
+- Le script `client.sh` (qui inclue 3 collecteurs différents bash,mixe,python) et
+Un le script `merge.py` permet de rassembler tous les données en un seul json
+et enregistre dans un fichier `collecteur_final.json`
 
-partie collecteur :
-
-install for dépendence 
-setup.sh
-./cron.sh 
-./generate_key.sh
-./communication_client.py &
-
-
-
-client.sh (execute 3 collecteur différent bash,mixe,python)  
-un fichier merge.py permet de rassembler tout les données en un seul json
-qui renregistre dans un fichier collecteur_final.json
-
-pour envoyer les infos du collecteur au serveur principal
-communication_client.py qui ouvre une connection https en SSL avec un certificat qui n'est pas authentifié par un tier + par un user/mot de passe
-la route de cette connection est : <ip_collecteur>:5000/api/monitoring qui est envoyé en JSON en GET
+- Le `communication_client.py` Pour envoyer les infos du collecteur au serveur principal
+`communication_client.py` -> ouvre une connection https en SSL avec un certificat qui n'est pas authentifié par un tier + par un user/mot de passe
+la route de cette connection est :
+`<ip_collecteur>:5000/api/monitoring` qui est envoyé en JSON en GET
+Dépendance : flask
 
 
-#######################
+
+### partie serveur principal :
+#### step 1 - install for dépendence
+```bash
+cd ./MonitoringAPEFB/serveur
+./setup.sh
+```
+le `setup.sh` contient toutes les librairies et paquets
+
+#### step 2 - cron / automatisation
+```bash
+cd ./MonitoringAPEFB/serveur/stockage_collection
+./cron.sh
+```
+le `cron.sh` permet de executer :
+
+- Le script `communication_serveur.sh` permet de récupérer les infos de chaque fichier du collecteur ()utilisation de curl et jq).
+ Aprés avoir récupéré les dernières infos d'un collecteur, le script exécute `module_alerte_date.py` se trouvant dans le dossier `affichage`
+ permet de nous alerter en cas de situation de crise:
+    - pas de signe de vie (+30min)
+    - disque dur capacité utilisé en %
+    - ram disponible en %
+    - utilisation cpu en %
+
+- Le script `parseur.py` parseur web permet de récupérer les dernières infos du site [cert.ssi.gouv](http://www.cert.ssi.gouv.fr/)
+Il est prévu pour récupérer l'alerte la plus récente ainsi que les autres de la liste qui n'ont pas été ajouté dans le json `parseur.json`.
+Dépendance : bsp4 beautifulsoup (pour parser le html)
+
+- Le script `clean_backup_day5.sh` permet de supprimer les archives qui ont plus de 5 jours.
+
+#### step 3 - ajouter un client collecteur
+```bash
+cd ./serveur/communication
+```
+Add line in your file `collecteur_hosts.conf`:
+```bash
+collecteur_hosts[n]="xxx.xxx.x.x"
+```
+
+#### step 4 - sauvegarde & restauration
+
+```bash
+cd ./serveur/stockage_collection
+```
+
+script `sauvegarde.sh` : permet de sauvegarder à l'instant T la base de donées + le parseur dans une archive
+script `restoration.sh` : permet de restorer la base de données + le parseur
 
 
-partie serveur principal :
+#### step 5 - affichage graphique
+```bash
+cd ./serveur/affichage
+./interaction.sh
+```
 
-install for dépendence
-setup.sh
- 
-
-un script communication_serveur.sh permet de récupérer les infos de chaque collecteur par fichier
-utilisation de curl et jq
-
-aprés avoir récupérer les derniere info d'un collecteur le script  execute module_alterte_date.py
-permet de nous alerter en cas de situation de crise
-- pas de signe de vie (+30min)
-- disque dur
-- ram disponible
-- cpu
-
-le parseur web (parseur.py) permet de récupérer les derniere info du site http://www.cert.ssi.gouv.fr/
-il est prévu pour qu'il récupére aussi bien la 1er de la liste qui est sencé etre l'alerte la plus récente que les alertes dernière alerte qui n'aurait pas été ajouté dans le json (parseur.json)
-dépendance : bsp4 beautifulsoup (pour parser le html)
-
-
-l'affichage en console de lance via le script interaction.sh
-on demande de charger un serveur par mit la liste proposé pour pouvoir afficher par la suite ses graphiques
-un graph de l'historique des info demandé + une phrase sur la dernière info récu.
+executer `interaction.sh` : permet affichage en console de graphique.
+on demande de charger un serveur parmi la liste proposé pour pouvoir afficher par la suite des graphiques
+d'un graph sur l'historique des infos demandés + une phrase sur la dernière info reçu.
 dépendance : gnuplot (pour les graph en console)
 
 
@@ -57,10 +103,11 @@ dépendance : gnuplot (pour les graph en console)
 
 
 
-bonus :
-- bdd sans serveur : json
-- les deux script pour le collecteur peuvent etre installer sur des serveur sans avoir à toucher la partie du code
-pour cela un fichier collecteur_hosts.conf est placer sur le sereur principal chaque line du tableau correspond au ip des collecteurs pour en ajouter un il faut ajouter une line au tableau.
-- template mail permetant de gérer les différent cas de la situation de crise de collecteur (module_alerte_date.py)
-- https
+#### bonus :
+- Bdd sans serveur : json
+- Les deux scripts pour le collecteur peuvent etre installés sur des serveurs sans avoir à toucher la partie du code :
+pour cela un fichier collecteur_hosts.conf est placé sur le sereur principal --> chaque ligne du tableau correspond aux ip des collecteurs. Pour en ajouter un ip faut ajouter une ligne du tableau.
+- Template mail permettant de gérer les différents cas de la situation de crise de collecteur (module_alerte_date.py)
+- Envoie de mail depuis le serveur de université
+- HTTPS
 
