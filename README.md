@@ -1,5 +1,4 @@
-<<<<<<< HEAD
-﻿# MonitoringAPEFB
+# MonitoringAPEFB
 =======
 # MonitoringAPEFB
 >>>>>>> origin/master
