@@ -8,9 +8,11 @@ partie collecteur :
 
 install for dépendence 
 setup.sh
+./cron.sh 
+./generate_key.sh
+./communication_client.py &
 
-mettre le cron tab  : (toute les 5 min)
-*/5 * * * * root /home/monitoring/client.sh
+
 
 client.sh (execute 3 collecteur différent bash,mixe,python)  
 un fichier merge.py permet de rassembler tout les données en un seul json
@@ -28,6 +30,7 @@ partie serveur principal :
 
 install for dépendence
 setup.sh
+ 
 
 un script communication_serveur.sh permet de récupérer les infos de chaque collecteur par fichier
 utilisation de curl et jq
