@@ -11,14 +11,14 @@ mkdir -p ./log
 filelog="$PWD/log/collecteur_bash.json"
 
 host_name=`hostname`
-disk_capacity_used=`df -h | grep "dev/sd" | tr -s '' ' ' | cut -d" "   -f5 | tr -d '%'`
+disk_capacity_used=`df -h | grep "dev/sda1" | tr -s '' ' ' | cut -d" "   -f5 | tr -d '%'`
 os_version=`cat /etc/issue | grep -o "^[^\]*"`
 cpu=`top -bn1 | grep '%Cpu'`
 nbr_users_logged=`top -bn1 | grep 'top -' | cut -d, -f2 | tr -s -d 'users ' ' '`
 users_logged=`who | awk -F "[ (:0)]" '{printf "%-10s%17s\n", $1, $(NF-1)}' | uniq`
 computer_duration=`uptime |  awk '{print $3}' | tr -d ','`
-ip_local=`hostname -i`
-ip_public=`wget -qO - icanhazip.com`
+ip_local=`hostname -I | awk '{ print $1 }'`
+ip_public=`wget http://checkip.dyndns.org/ -O - -o /dev/null | cut -d: -f 2 | cut -d\< -f 1`
 date=`date +"%Y-%m-%d-%X"`
 
 

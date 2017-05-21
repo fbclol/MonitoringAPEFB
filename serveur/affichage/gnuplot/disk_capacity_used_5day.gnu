@@ -1,8 +1,8 @@
 set terminal dumb
 
 set xlabel "day of month" 
-set ylabel "number of users logged"
-set title "Number of users logged in the last 5 days"
+set ylabel "% disk capacity"
+set title "% disk capacity in the last 5 days"
 
 
 set key on outside left bmargin box title "Légende"

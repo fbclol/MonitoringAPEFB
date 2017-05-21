@@ -4,6 +4,7 @@
 import csv
 import json
 import sys
+
 # open the file based on the name of the hostname
 if len(sys.argv) > 1:
     data_file = open('../stockage_collection/bdd/' + sys.argv[1] + '.json')

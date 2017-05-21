@@ -9,13 +9,9 @@
 
 
 
-# collecteur
-sudo apt-get install -y wget python3 python3-setuptools python3-pip
-sudo apt-get install -y build-essential libssl-dev libffi-dev python-dev
+# serveur
+sudo apt-get install -y jq curl python3 python3-setuptools python3-pip gnuplot
+
 easy_install3 pip
-pip3 install socket
-pip3 install psutil
-pip3 install cryptography
-pip3 install pyopenssl
-pip3 install flask
-pip3 install flask_httpauth
+pip3 install bs4
+

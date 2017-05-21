@@ -1,14 +1,14 @@
 [{
-"hostname":"a4d8b765caa0"
-,"date":"2017-05-20-21:58:18",
-"name_processor":" Intel(R) Core(TM) i7-4710HQ CPU @ 2.50GHz"
-,"nbr_core":"1"
-,"total_memory":"1253632"
-,"memory_available":"753820"
-,"list_disks":"/dev/sda1        59G  3,3G   53G   6% /etc/hosts"
-,"task_total":"9"
+"hostname":"boue-G550JK"
+,"date":"2017-05-21-21:00:26",
+"name_processor":"Modèle : 60"
+,"nbr_core":"8"
+,"total_memory":"8055300"
+,"memory_available":"5590324"
+,"list_disks":"/dev/sdb6           31G    5,8G   23G  21% /,/dev/sda1          932G    773G  159G  83% /media/boue/Nouveau nom,/dev/sdb1          363G    280G   83G  78% /media/boue/01D23C217E528410"
+,"task_total":"284"
 ,"task_running":"1"
-,"task_sleeping":"8"
+,"task_sleeping":"283"
 ,"task_stopped":"0"
 ,"task_zombie":"0"
 

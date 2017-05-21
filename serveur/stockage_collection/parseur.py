@@ -6,9 +6,16 @@ from bs4 import BeautifulSoup
 import json
 import urllib.request
 from datetime import date
+import sys
 
 # today's date (y-m-d)
 today = date.today()
+
+if len(sys.argv) > 1:
+
+	file_parseur = sys.argv[1]+'parseur.json'
+else:
+	file_parseur ="parseur.json"
 
 # Query on the site to assign the content in a variable
 with urllib.request.urlopen('http://www.cert.ssi.gouv.fr/') as response:
@@ -47,7 +54,7 @@ def serialiseur_perso(obj):
 
 
 # initialization if the file does not exist, creating the first of the list alerts
-if not os.path.isfile('parseur.json'):
+if not os.path.isfile(file_parseur):
     liste_Alerte = []
     oAlerte = Alert(
         alert=valuehtml,
@@ -57,13 +64,13 @@ if not os.path.isfile('parseur.json'):
         site="http://www.cert.ssi.gouv.fr/site/" + valuehtml + "/index.html",
         description=description)
     liste_Alerte.append(oAlerte)
-    with open('parseur.json', 'w', encoding='utf-8') as f:
+    with open(file_parseur, 'w', encoding='utf-8') as f:
         json.dump(liste_Alerte, f, indent=4, default=serialiseur_perso)
     print('mise a jour des alerte')
     print('>> parseur.json')
 
 # récupére le JSON sérialisé
-data_file = open('parseur.json')
+data_file = open(file_parseur)
 data = json.load(data_file)
 
 i = 0
@@ -75,7 +82,7 @@ while ((soup.findAll('table')[5].find_all('tr')[i].contents[1].get_text().split(
     description = soup.findAll('table')[5].find_all('tr')[i].contents[3].text
     if numMax != int(valuehtml.split('-')[3]):
         print(soup.findAll('table')[5].find_all('tr')[i].contents[1].get_text().split('-')[3])
-        oAlerte = Alerte(alert=valuehtml,
+        oAlerte = Alert(alert=valuehtml,
                          num=valuehtml.split('-')[3],
                          year=valuehtml.split('-')[1],
                          pdf="http://www.cert.ssi.gouv.fr/site/" + valuehtml + ".pdf",
@@ -87,19 +94,20 @@ while ((soup.findAll('table')[5].find_all('tr')[i].contents[1].get_text().split(
 
 # If there are new alerts they are saved in the file
 if i > 0:
-    with open('parseur.json', 'w', encoding='utf-8') as f:
+
+    with open(file_parseur, 'w', encoding='utf-8') as f:
         json.dump(data, f, indent=4, default=serialiseur_perso)
     print('mise a jour des alerte')
     print('>> parseur.json')
 
 # Remove alerts overrun by time
 i = 0
-data_file = open('parseur.json')
+data_file = open(file_parseur)
 data = json.load(data_file)
 while i < len(data):
 
     if data[i]["year"] == str(today.year - 1):
         del data[i]
-        with open('parseur.json', 'w', encoding='utf-8') as f:
+        with open(file_parseur, 'w', encoding='utf-8') as f:
             json.dump(data, f, indent=4, default=serialiseur_perso)
     i += 1

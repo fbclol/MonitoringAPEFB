@@ -51,6 +51,18 @@ function graph_memory_available () {
 }
 
 
+function graph_tasks () {
+
+	if [[ "${arr[$num_host]}" == "" ]]
+	then
+		choice_server
+	fi
+	gnuplot gnuplot/tasks.gnu
+	task_total=`cat ./../stockage_collection/bdd/${arr[$num_host]}.json | jq -r '.[0].task_total'`
+	echo "Less than 5 min ago the server ${arr[$num_host]} has the toal of $task_total tasks."
+}
+
+
 rep=1 
 while [ "$rep" -eq 1 ]; do 
     printf "menu :\n\n" 
@@ -58,16 +70,16 @@ while [ "$rep" -eq 1 ]; do
     echo "2. Graphic display of the number of users" 
     echo "3. Graphic display of disk usage" 
     echo "4. Graphic display of the RAM usage"
-    echo "5. Affichage graphique du statut des taches" 
+    echo "5. Graphic display of tasks usage" 
     echo -e "q. To quit\n"
 	echo "Make a choice :"
     read   choix
     case "$choix" in 
-		1)  choice_server;;				
+		1)  	choice_server;;				
 		2) 	graph_nbre_user_logged ;;		
 		3) 	graph_disk_capacity_used ;;		
 		4) 	graph_memory_available ;;		
-		5) 	exo7 ;;	
+		5) 	graph_tasks ;;	
         q) 
             echo "Goodbye" 
             

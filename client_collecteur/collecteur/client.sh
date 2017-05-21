@@ -1,5 +1,11 @@
 #!/bin/bash
 
+# for cron
+if [ ! $1 == "" ]
+then
+	cd $1
+fi
+
 # Collecteur bash
 ./collecteur.sh
 

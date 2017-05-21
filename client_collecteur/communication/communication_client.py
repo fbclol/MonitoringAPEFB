@@ -7,6 +7,13 @@ from flask_httpauth import HTTPBasicAuth
 from socket import *
 from OpenSSL import SSL
 import os
+import subprocess
+
+print('---------- ip local ----------')
+args = ["hostname -I | awk '{ print $1 }'"]
+proc = subprocess.Popen(args, shell=True, stdout=subprocess.PIPE)
+ip = proc.communicate()[0].decode("utf-8")
+
 context = SSL.Context(SSL.SSLv23_METHOD)
 cer = os.path.join(os.path.dirname(__file__), './/monitoring.com.crt')
 key = os.path.join(os.path.dirname(__file__), './monitoring.com.key')
@@ -44,7 +51,7 @@ def summary():
 if __name__ == '__main__':
     context = (cer, key)
     app.run(
-        host=gethostbyname(gethostname()),
+        host=ip,
         port=5000,
         ssl_context=context,
         threaded=True

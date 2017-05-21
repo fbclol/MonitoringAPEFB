@@ -1,8 +1,8 @@
 set terminal dumb
 
 set xlabel "day of month" 
-set ylabel "number of users logged"
-set title "Number of users logged in the last 5 days"
+set ylabel "% of memory available"
+set title "% memory available in the last 5 days"
 
 
 set key on outside left bmargin box title "Légende"

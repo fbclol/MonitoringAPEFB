@@ -52,12 +52,12 @@ if len(sys.argv) > 1:
             body = "defaut"
 
         msg.attach(MIMEText(body, 'plain'))
-        #server = smtplib.SMTP('smtp.gmail.com', 587)
+        # server = smtplib.SMTP('smtp.gmail.com', 587)
         server = smtplib.SMTP_SSL('smtpz.univ-avignon.fr', 465)
         server.ehlo()
         server.starttls()
         server.ehlo()
-        server.login(fromaddr, "Kyfranc1234!")
+        server.login(fromaddr, "XXXXXXXXXX")
 
         text = msg.as_string()
 

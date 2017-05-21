@@ -1,6 +1,11 @@
 #! /bin/bash
 
-# récuperer les ip des collecteurs dans le fichier de conf
+if [ ! $1 == "" ]
+then
+	cd $1
+fi
+
+# Retrieve ip from collectors in conf file
 . collecteur_hosts.conf
 
 for host in ${collecteur_hosts[@]}; do

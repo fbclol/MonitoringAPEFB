@@ -19,7 +19,7 @@ i = 0
 while i < len(data_bash):
     if data_bash[i]["hostname"] == data_python[i]["hostname"]:
         data_bash[i]["cpu_usage"] = data_python[i]["cpu_usage"]
-        with open('./collecteur_final.json', 'w',
+        with open('./../stockage_collection/collecteur_final.json', 'w',
                   encoding='utf-8') as f:
             json.dump(data_bash, f, indent=4)
     i += 1
