@@ -10,7 +10,7 @@ install for dépendence
 setup.sh
 
 mettre le cron tab  : (toute les 5 min)
-#*/5 * * * * root /home/monitoring/client.sh
+*/5 * * * * root /home/monitoring/client.sh
 
 client.sh (execute 3 collecteur différent bash,mixe,python)  
 un fichier merge.py permet de rassembler tout les données en un seul json
