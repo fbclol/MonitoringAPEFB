@@ -1,7 +1,4 @@
 # MonitoringAPEFB
-=======
-# MonitoringAPEFB
->>>>>>> origin/master
 ## projet CERI - Monitoring
 
 par Pierre-Emmanuel Angoulvant et Franck Boué
