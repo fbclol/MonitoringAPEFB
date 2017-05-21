@@ -108,10 +108,15 @@ dépendance : gnuplot (pour les graph en console)
 ```bash
 cd ./serveur/affichage
 ```
-modified line 32,33 in your file `module_alerte_date.py`:
+Change de destinateur et d'émetteur modified line 32,33 in your file `module_alerte_date.py`:
 ```python
 fromaddr = "franck.boue@alumni.univ-avignon.fr"
 toaddr = "franck.boue@alumni.univ-avignon.fr"
+```
+
+for config send mail modified line 60 in your file `module_alerte_date.py`:
+```python
+server.login(fromaddr, "XXXXXXXXXX")
 ```
 si vous voulez changer de serveur de mail :
 modified line 56 in your file `module_alerte_date.py`:
