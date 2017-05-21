@@ -41,12 +41,13 @@ permet de nous alerter en cas de situation de crise
 
 le parseur web (parseur.py) permet de récupérer les derniere info du site http://www.cert.ssi.gouv.fr/
 il est prévu pour qu'il récupére aussi bien la 1er de la liste qui est sencé etre l'alerte la plus récente que les alertes dernière alerte qui n'aurait pas été ajouté dans le json (parseur.json)
+dépendance : bsp4 beautifulsoup (pour parser le html)
 
 
 l'affichage en console de lance via le script interaction.sh
 on demande de charger un serveur par mit la liste proposé pour pouvoir afficher par la suite ses graphiques
 un graph de l'historique des info demandé + une phrase sur la dernière info récu.
-
+dépendance : gnuplot (pour les graph en console)
 
 
 
