@@ -27,16 +27,21 @@ cd ./MonitoringAPEFB/client_collecteur/collecteur
 ./cron.sh
 ```
 le `cron.sh` permet de executer :
-- Le script `client.sh` (qui inclue 3 collecteurs différents bash,mixe,python) et
+- (toutes les 5min) Le script `client.sh` (qui inclue 3 collecteurs différents bash,mixe,python) et
 Un le script `merge.py` permet de rassembler tous les données en un seul json
 et enregistre dans un fichier `collecteur_final.json`
 
-- Le `communication_client.py` Pour envoyer les infos du collecteur au serveur principal
+- (chaque redemarrage) Le `communication_client.py` Pour envoyer les infos du collecteur au serveur principal
 `communication_client.py` -> ouvre une connection https en SSL avec un certificat qui n'est pas authentifié par un tier + par un user/mot de passe
 la route de cette connection est :
 `<ip_collecteur>:5000/api/monitoring` qui est envoyé en JSON en GET
 Dépendance : flask
 
+#### step 3 - Génération des clés pour le https
+```bash
+cd ./MonitoringAPEFB/client_collecteur/communication
+./generate_key.sh
+```
 
 
 ### partie serveur principal :
@@ -54,7 +59,7 @@ cd ./MonitoringAPEFB/serveur/stockage_collection
 ```
 le `cron.sh` permet de executer :
 
-- Le script `communication_serveur.sh` permet de récupérer les infos de chaque fichier du collecteur ()utilisation de curl et jq).
+- (toutes les 5min) Le script `communication_serveur.sh` permet de récupérer les infos de chaque fichier du collecteur ()utilisation de curl et jq).
  Aprés avoir récupéré les dernières infos d'un collecteur, le script exécute `module_alerte_date.py` se trouvant dans le dossier `affichage`
  permet de nous alerter en cas de situation de crise:
     - pas de signe de vie (+30min)
@@ -62,11 +67,11 @@ le `cron.sh` permet de executer :
     - ram disponible en %
     - utilisation cpu en %
 
-- Le script `parseur.py` parseur web permet de récupérer les dernières infos du site [cert.ssi.gouv](http://www.cert.ssi.gouv.fr/)
+- (tout les jours) Le script `parseur.py` parseur web permet de récupérer les dernières infos du site [cert.ssi.gouv](http://www.cert.ssi.gouv.fr/)
 Il est prévu pour récupérer l'alerte la plus récente ainsi que les autres de la liste qui n'ont pas été ajouté dans le json `parseur.json`.
 Dépendance : bsp4 beautifulsoup (pour parser le html)
 
-- Le script `clean_backup_day5.sh` permet de supprimer les archives qui ont plus de 5 jours.
+- (tout les jours) Le script `clean_backup_day5.sh` permet de supprimer les archives qui ont plus de 5 jours.
 
 #### step 3 - ajouter un client collecteur
 ```bash
@@ -98,7 +103,21 @@ on demande de charger un serveur parmi la liste proposé pour pouvoir afficher p
 d'un graph sur l'historique des infos demandés + une phrase sur la dernière info reçu.
 dépendance : gnuplot (pour les graph en console)
 
+#### step 6 - modification pour l'envoie des mails
 
+```bash
+cd ./serveur/affichage
+```
+modified line 32,33 in your file `module_alerte_date.py`:
+```python
+fromaddr = "franck.boue@alumni.univ-avignon.fr"
+toaddr = "franck.boue@alumni.univ-avignon.fr"
+```
+si vous voulez changer de serveur de mail :
+modified line 56 in your file `module_alerte_date.py`:
+```python
+server = smtplib.SMTP_SSL('smtpz.univ-avignon.fr', 465)
+```
 
 
 
