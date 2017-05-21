@@ -83,8 +83,8 @@ collecteur_hosts[n]="xxx.xxx.x.x"
 cd ./serveur/stockage_collection
 ```
 
-script `sauvegarde.sh` : permet de sauvegarder à l'instant T la base de donées + le parseur dans une archive
-script `restoration.sh` : permet de restorer la base de données + le parseur
+- script `sauvegarde.sh` : permet de sauvegarder à l'instant T la base de donées + le parseur dans une archive
+- script `restoration.sh` : permet de restorer la base de données + le parseur
 
 
 #### step 5 - affichage graphique
