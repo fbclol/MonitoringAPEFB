@@ -3,29 +3,34 @@
 
 import csv
 import json
+import sys
+# open the file based on the name of the hostname
+if len(sys.argv) > 1:
+    data_file = open('../stockage_collection/bdd/' + sys.argv[1] + '.json')
+    data = json.load(data_file)
 
-# ouvrir le fichier en fonction du nom du hostname
-data_file = open('../stockage_collection/bdd/9bf6d4adc10f.json')
-data = json.load(data_file)
+    f = csv.writer(open('../stockage_collection/bdd/stat.dat', "w"))
 
+    # Write CSV Header
+    f.writerow(["date;nbr_users_logged;total_memory;memory_available;task_total;task_running;"
+                "task_zombie;task_stopped;task_sleeping;disk_capacity_used;cpu_usage;computer_duration"])
 
-f = csv.writer(open("../stockage_collection/bdd/9bf6d4adc10f.dat", "w"))
-
-# Write CSV Header, If you dont need that, remove this line
-f.writerow(["date;nombre_user_connecte;ram_dispo;ram_occuper;tache_total;tache_running;tache_zombie;tache_stopped;tache_sleeping;disque_use"])
-
-for data in data:
-    f.writerow(
-				[
-				data["date"]+";"+
-				data["nombre_user_connecte"]+";"+
-				data["ram_dispo"]+";"+
-				data["ram_occuper"]+";"+
-				data["tache_total"]+";"+
-				data["tache_running"]+";"+
-				data["tache_zombie"]+";"+
-				data["tache_stopped"]+";"+
-				data["tache_sleeping"]+";"+
-				data["disque_use"]
-				]
-			  )
+    # one line  column delimiter ;
+    for data in data:
+        f.writerow([
+            data["date"] + ";" +
+            data["nbr_users_logged"] + ";" +
+            data["total_memory"] + ";" +
+            data["memory_available"] + ";" +
+            data["task_total"] + ";" +
+            data["task_running"] + ";" +
+            data["task_zombie"] + ";" +
+            data["task_stopped"] + ";" +
+            data["task_sleeping"] + ";" +
+            data["disk_capacity_used"] + ";" +
+            data["cpu_usage"] + ";" +
+            data["computer_duration"]
+        ]
+        )
+else:
+    print("Missing an argument")

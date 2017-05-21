@@ -1,10 +1,10 @@
 [{
 "hostname":"a4d8b765caa0"
-,"date":"2017-05-20-20:48:59",
+,"date":"2017-05-20-21:58:18",
 "name_processor":" Intel(R) Core(TM) i7-4710HQ CPU @ 2.50GHz"
 ,"nbr_core":"1"
 ,"total_memory":"1253632"
-,"memory_available":"753504"
+,"memory_available":"753820"
 ,"list_disks":"/dev/sda1        59G  3,3G   53G   6% /etc/hosts"
 ,"task_total":"9"
 ,"task_running":"1"

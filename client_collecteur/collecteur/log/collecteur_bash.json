@@ -1,6 +1,6 @@
 [{
   "hostname":"a4d8b765caa0",
-  "date":"2017-05-20-20:48:59",
+  "date":"2017-05-20-21:58:18",
   "ip_local": "172.17.0.3",
   "ip_public": "86.229.42.13",
   "cpu": "%Cpu(s): 0,3 us, 0,2 sy, 0,0 ni, 99,5 id, 0,0 wa, 0,0 hi, 0,0 si, 0,0 st",
@@ -8,5 +8,5 @@
   "os_version": "Ubuntu 16.04.2 LTS ",
   "nbr_users_logged": "0",
   "users_logged": "",
-  "computer_duration": "7:17"
+  "computer_duration": "8:26"
 }]

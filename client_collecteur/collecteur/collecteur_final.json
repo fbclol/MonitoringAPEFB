@@ -1,15 +1,15 @@
 [
     {
-        "computer_duration": "7:17",
-        "ip_public": "86.229.42.13",
-        "users_logged": "",
         "os_version": "Ubuntu 16.04.2 LTS ",
+        "users_logged": "",
+        "computer_duration": "8:26",
+        "date": "2017-05-20-21:58:18",
         "hostname": "a4d8b765caa0",
-        "date": "2017-05-20-20:48:59",
-        "cpu_usage": "0.0",
+        "disk_capacity_used": "6",
+        "cpu": "%Cpu(s): 0,3 us, 0,2 sy, 0,0 ni, 99,5 id, 0,0 wa, 0,0 hi, 0,0 si, 0,0 st",
         "nbr_users_logged": "0",
         "ip_local": "172.17.0.3",
-        "disk_capacity_used": "6",
-        "cpu": "%Cpu(s): 0,3 us, 0,2 sy, 0,0 ni, 99,5 id, 0,0 wa, 0,0 hi, 0,0 si, 0,0 st"
+        "cpu_usage": "0.0",
+        "ip_public": "86.229.42.13"
     }
 ]

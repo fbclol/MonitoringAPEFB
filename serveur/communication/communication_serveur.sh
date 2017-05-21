@@ -6,13 +6,13 @@
 for host in ${collecteur_hosts[@]}; do
         
 	filedir="$PWD/../stockage_collection/bdd/"
-	HTTP_STATUS=`curl -IL --silent -u monitoring:p7tH0n@#! $host:5000/api/monitoring | grep HTTP | cut -d' ' -f2`;    
-
-	if [[ $HTTP_STATUS == "200" ]]
+	http_status=`curl -IL --silent -u monitoring:p7tH0n@#! $host:5000/api/monitoring | grep HTTP | cut -d' ' -f2`;    
+	filename=""
+	if [[ $http_status == "200" ]]
 	then
 
 		tmp_file=$PWD/$RANDOM.tmp
-		curl -u monitoring:p7tH0n@#! -H "Accept: application/json" -X GET 172.17.0.2:5000/api/monitoring | jq '.response' >> $tmp_file
+		curl --silent -u monitoring:p7tH0n@#! -H "Accept: application/json" -X GET $host:5000/api/monitoring | jq '.response' >> $tmp_file
 		filename=`cat $tmp_file | jq -r '.[].hostname'` 
 		basename=$filedir$filename'.json'
 	
@@ -23,13 +23,18 @@ for host in ${collecteur_hosts[@]}; do
 			extract_next=`cat $tmp_file`
 			extract_old=`cat $basename`
 		
-			#echo -e "${extract_next%]},${extract_old#[}"  > $basename
+			echo -e "${extract_next%]},${extract_old#[}"  > $basename
 			rm -f $tmp_file
 		fi
 	fi
 
-	./../affichage/module_alerte_date.py $filename
-
+	if [[ ! $filename == "" ]]
+	then
+		echo "The collector $host will be analyzed for the crisis system"
+		./../affichage/module_alerte_date.py $filename
+	else
+		echo "The collector $host does not respond "
+	fi
 done
 
 exit 0

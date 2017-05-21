@@ -7,15 +7,23 @@
 ###### realized by : Franck & Pierre-E                 ###########
 ##################################################################
 
-
+# client
 apt-get install -y wget
 apt-get install -y python3
 apt-get install -y python3-setuptools
-apt-get install python3-pip
+apt-get install -y python3-pip
 easy_install3 pip
 pip3 install socket
 pip3 install psutil
 
+# serveur
+apt-get install -y jq
+apt-get install -y curl
+apt-get install -y python3
+apt-get install -y python3-setuptools
+apt-get install -y python3-pip
+easy_install3 pip
+pip3 install bs4
 
 #app="python3"
 #service=`apt-cache policy $app | grep none | wc -m`
