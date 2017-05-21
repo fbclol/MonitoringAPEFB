@@ -9,7 +9,7 @@ import sys
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 
-# Constant python
+# Constant python fo type alert
 _CODE_ALERT_MAIL_FUNCTIONING = 1
 _CODE_ALERT_MAIL_DISK = 2
 _CODE_ALERT_MAIL_RAM = 3
@@ -29,12 +29,13 @@ if len(sys.argv) > 1:
     # template email
     # param num int
     def send_mail(code):
-        fromaddr = "testmailbidon126@gmail.com"
-        toaddr = "boue.franck@orange.fr"
+        fromaddr = "franck.boue@alumni.univ-avignon.fr"
+        toaddr = "franck.boue@alumni.univ-avignon.fr"
         msg = MIMEMultipart()
         msg['From'] = fromaddr
         msg['To'] = toaddr
 
+        # 4 template email
         if code == _CODE_ALERT_MAIL_FUNCTIONING:
             msg['Subject'] = "[ALERT SERVER][FUNCTIONING]- " + sys.argv[1]
             body = "The server " + sys.argv[1] + " Has not given a sign of life for more than 30 min"
@@ -51,11 +52,12 @@ if len(sys.argv) > 1:
             body = "defaut"
 
         msg.attach(MIMEText(body, 'plain'))
-        server = smtplib.SMTP('smtp.gmail.com', 587)
+        #server = smtplib.SMTP('smtp.gmail.com', 587)
+        server = smtplib.SMTP_SSL('smtpz.univ-avignon.fr', 465)
         server.ehlo()
         server.starttls()
         server.ehlo()
-        server.login(fromaddr, "testmail")
+        server.login(fromaddr, "Kyfranc1234!")
 
         text = msg.as_string()
 

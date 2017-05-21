@@ -15,6 +15,8 @@ apt-get install -y python3-pip
 easy_install3 pip
 pip3 install socket
 pip3 install psutil
+pip3 install pyopenssl
+
 
 # serveur
 apt-get install -y jq

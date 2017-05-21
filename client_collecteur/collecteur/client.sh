@@ -1,7 +1,5 @@
 #!/bin/bash
 
-#*/5 * * * * root /home/monitoring/client.sh
-
 # Collecteur bash
 ./collecteur.sh
 

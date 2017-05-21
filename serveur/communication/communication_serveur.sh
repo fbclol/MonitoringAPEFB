@@ -6,13 +6,13 @@
 for host in ${collecteur_hosts[@]}; do
         
 	filedir="$PWD/../stockage_collection/bdd/"
-	http_status=`curl -IL --silent -u monitoring:p7tH0n@#! $host:5000/api/monitoring | grep HTTP | cut -d' ' -f2`;    
+	http_status=`curl -IL --silent -u monitoring:p7tH0n@#! https://$host:5000/api/monitoring -k | grep HTTP | cut -d' ' -f2`;    
 	filename=""
 	if [[ $http_status == "200" ]]
 	then
 
 		tmp_file=$PWD/$RANDOM.tmp
-		curl --silent -u monitoring:p7tH0n@#! -H "Accept: application/json" -X GET $host:5000/api/monitoring | jq '.response' >> $tmp_file
+		curl --silent -u monitoring:p7tH0n@#! -H "Accept: application/json" -X GET https://$host:5000/api/monitoring -k | jq '.response' >> $tmp_file
 		filename=`cat $tmp_file | jq -r '.[].hostname'` 
 		basename=$filedir$filename'.json'
 	
