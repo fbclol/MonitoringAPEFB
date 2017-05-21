@@ -17,7 +17,7 @@ un fichier merge.py permet de rassembler tout les données en un seul json
 qui renregistre dans un fichier collecteur_final.json
 
 pour envoyer les infos du collecteur au serveur principal
-communication_client.py qui ouvre une connection http(s) protégé par un user/mot de passe + (TLS pas encore)
+communication_client.py qui ouvre une connection https en SSL avec un certificat qui n'est pas authentifié par un tier + par un user/mot de passe
 la route de cette connection est : <ip_collecteur>:5000/api/monitoring qui est envoyé en JSON en GET
 
 
@@ -59,4 +59,5 @@ bonus :
 - les deux script pour le collecteur peuvent etre installer sur des serveur sans avoir à toucher la partie du code
 pour cela un fichier collecteur_hosts.conf est placer sur le sereur principal chaque line du tableau correspond au ip des collecteurs pour en ajouter un il faut ajouter une line au tableau.
 - template mail permetant de gérer les différent cas de la situation de crise de collecteur (module_alerte_date.py)
+- https
 
